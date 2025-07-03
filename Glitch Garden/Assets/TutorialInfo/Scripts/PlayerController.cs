@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,7 +15,10 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI RestartNotification; // reused for both death + level complete
+
     private int numberofplants = 0;
+    public int maxPlants = 10; // configurable in Inspector
 
     void Awake()
     {
@@ -37,21 +42,19 @@ public class PlayerController : MonoBehaviour
         updateScore();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
+        if (RestartNotification != null)
+            RestartNotification.text = "";
     }
 
     void FixedUpdate()
     {
-        // Forward/backward movement input
         float moveAmount = moveInput.y;
-
-        // Left/right turning input
         float turnAmount = moveInput.x;
 
-        // Move forward/backward in the current facing direction
         Vector3 moveDirection = transform.forward * moveAmount;
         rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
 
-        // Rotate left/right in place
         if (Mathf.Abs(turnAmount) > 0.1f)
         {
             float turnSpeedThisFrame = turnAmount * rotateSpeed * Time.fixedDeltaTime;
@@ -59,32 +62,102 @@ public class PlayerController : MonoBehaviour
             rb.MoveRotation(rb.rotation * turnOffset);
         }
 
-        // Update Animator
         float currentSpeed = Mathf.Abs(moveAmount) * moveSpeed;
         animator.SetFloat("Speed", currentSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
-{
-    Debug.Log($"[Trigger] Banana Man collided with: {other.name}, Tag: {other.tag}");
-
-    if (other.CompareTag("Plant"))
     {
-        Debug.Log("[Trigger] It’s a Plant! Picking it up…");
-        numberofplants++;
-        updateScore();
-        Destroy(other.gameObject);
-    }
-    else
-    {
-        Debug.Log("[Trigger] Not a Plant — ignoring.");
-    }
-}
+        Debug.Log($"[Trigger] Banana Man collided with: {other.name}, Tag: {other.tag}");
 
+        if (other.CompareTag("Plant"))
+        {
+            Debug.Log("[Trigger] It’s a Plant! Picking it up…");
+
+            numberofplants++;
+            updateScore();
+
+            GrowCharacter();
+
+            Destroy(other.gameObject);
+
+            if (numberofplants >= maxPlants)
+            {
+                Debug.Log("[Level] Max plants collected. Level complete!");
+                StartCoroutine(LevelComplete());
+            }
+        }
+        else if (other.CompareTag("BadPlant"))
+        {
+            Debug.Log("[Trigger] Oh no! Bad Plant. Banana Man dies…");
+            RestartGame(); // triggers coroutine
+        }
+        else
+        {
+            Debug.Log("[Trigger] Not a Plant — ignoring.");
+        }
+    }
 
     private void updateScore()
     {
         ScoreText.text = numberofplants.ToString();
     }
-}
 
+    private void GrowCharacter()
+    {
+        float growthFactor = 1.05f;
+        transform.localScale *= growthFactor;
+
+        Debug.Log($"[Growth] Banana Man grew! New scale: {transform.localScale}");
+    }
+
+    public void RestartGame()
+    {
+        StartCoroutine(RestartWithMessage());
+    }
+
+    private IEnumerator RestartWithMessage()
+    {
+        if (RestartNotification != null)
+        {
+            RestartNotification.text = "You died. Restarting…";
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator LevelComplete()
+    {
+        if (RestartNotification != null)
+        {
+            RestartNotification.text = "Level Complete! Loading next level…";
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        LoadNextLevel();
+    }
+
+    public void LoadNextLevel()
+    {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextIndex = currentIndex + 1;
+
+        if (nextIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextIndex);
+        }
+        else
+        {
+            Debug.Log("No more levels! Reloading current level.");
+            SceneManager.LoadScene(currentIndex);
+        }
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+}

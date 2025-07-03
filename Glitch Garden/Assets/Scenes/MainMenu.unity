@@ -386,7 +386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6121,10 +6121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a9bc1729cede447977a7fe0141c335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchAmount: 5
-  glitchSpeed: 0.05
-  scaleFactor: 1.5
-  scaleSpeed: 20
 --- !u!1 &1025606878
 GameObject:
   m_ObjectHideFlags: 0
@@ -6729,10 +6725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a9bc1729cede447977a7fe0141c335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchAmount: 5
-  glitchSpeed: 0.05
-  scaleFactor: 1.5
-  scaleSpeed: 20
 --- !u!1 &1776220153
 GameObject:
   m_ObjectHideFlags: 0
@@ -6989,10 +6981,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a9bc1729cede447977a7fe0141c335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchAmount: 5
-  glitchSpeed: 0.05
-  scaleFactor: 1.5
-  scaleSpeed: 20
 --- !u!1 &1820838472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7222,9 +7210,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 619394802}
-  - {fileID: 519420032}
   - {fileID: 1025606881}
   - {fileID: 1820838473}
   - {fileID: 528621174}
   - {fileID: 9098696339363542452}
   - {fileID: 1090887759}
+  - {fileID: 519420032}
