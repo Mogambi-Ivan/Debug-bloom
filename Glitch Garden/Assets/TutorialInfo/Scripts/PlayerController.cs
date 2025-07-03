@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
     private Rigidbody rb;
-    private Animator animator;  // Reference to Banana Man's Animator
+    private Animator animator;
 
     void Awake()
     {
@@ -30,17 +30,20 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();  // Grabs Banana Man’s Animator
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
-        // Apply movement
+        // Move
         Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
         rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
 
-        // Update animation Speed parameter based on movement
-        float speed = moveDirection.magnitude * moveSpeed;
-        animator.SetFloat("Speed", speed);
+        // Calculate speed to control animations
+        float currentSpeed = moveDirection.magnitude * moveSpeed;
+
+        // Pass speed to Animator
+        animator.SetFloat("Speed", currentSpeed);
     }
 }
+
