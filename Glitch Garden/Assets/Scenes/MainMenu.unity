@@ -5514,6 +5514,7 @@ GameObject:
   - component: {fileID: 607730189}
   - component: {fileID: 607730191}
   - component: {fileID: 607730192}
+  - component: {fileID: 607730193}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -5674,6 +5675,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa48375dba2907f41bc5e7c867b29cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &607730193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607730187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b517d5781123e1148aeb7621aae4d534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &619394800
@@ -5879,6 +5892,7 @@ GameObject:
   - component: {fileID: 1016930755}
   - component: {fileID: 1016930758}
   - component: {fileID: 1016930759}
+  - component: {fileID: 1016930760}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -5950,8 +5964,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 607730190}
-        m_TargetAssemblyTypeName: GlitchGarden.MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 607730193}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OpenSettings
         m_Mode: 1
         m_Arguments:
@@ -6119,6 +6133,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20a9bc1729cede447977a7fe0141c335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1016930760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016930753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b517d5781123e1148aeb7621aae4d534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1025606878
@@ -6471,6 +6497,7 @@ GameObject:
   - component: {fileID: 1554892387}
   - component: {fileID: 1554892390}
   - component: {fileID: 1554892391}
+  - component: {fileID: 1554892392}
   m_Layer: 5
   m_Name: Play Button
   m_TagString: Untagged
@@ -6542,18 +6569,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 607730190}
-        m_TargetAssemblyTypeName: GlitchGarden.MainMenu, Assembly-CSharp
-        m_MethodName: PlayGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1554892390}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
@@ -6566,8 +6581,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 607730192}
-        m_TargetAssemblyTypeName: GlitchGarden.MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 607730193}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
@@ -6725,6 +6740,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a9bc1729cede447977a7fe0141c335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1554892392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554892385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b517d5781123e1148aeb7621aae4d534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1776220153
 GameObject:
   m_ObjectHideFlags: 0
@@ -6739,6 +6766,7 @@ GameObject:
   - component: {fileID: 1776220155}
   - component: {fileID: 1776220158}
   - component: {fileID: 1776220159}
+  - component: {fileID: 1776220160}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -6810,8 +6838,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 607730190}
-        m_TargetAssemblyTypeName: GlitchGarden.MainMenu, Assembly-CSharp
+      - m_Target: {fileID: 607730193}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -6979,6 +7007,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20a9bc1729cede447977a7fe0141c335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1776220160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776220153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b517d5781123e1148aeb7621aae4d534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1820838472
