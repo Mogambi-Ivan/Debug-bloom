@@ -1,44 +1,46 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Needed for the new Input System
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // Reference to the generated input actions class
     private InputSystem_Actions controls;
     private Vector2 moveInput;
 
+    public float moveSpeed = 5f;
+    private Rigidbody rb;
+    private Animator animator;  // Reference to Banana Man's Animator
+
     void Awake()
     {
-        // Initialize the input system
         controls = new InputSystem_Actions();
     }
 
     void OnEnable()
     {
-        // Enable the input system
         controls.Enable();
-
-        // Handle movement input
         controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
-
-        // Add other input handlers (e.g., sprint, jump) here if needed
     }
 
     void OnDisable()
     {
-        // Disable the input system when not in use
         controls.Disable();
     }
 
     void Start()
     {
-        // Any other startup logic goes here
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();  // Grabs Banana Man’s Animator
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // Use moveInput here to control the player
-        Debug.Log("Move input: " + moveInput);
+        // Apply movement
+        Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+        rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
+
+        // Update animation Speed parameter based on movement
+        float speed = moveDirection.magnitude * moveSpeed;
+        animator.SetFloat("Speed", speed);
     }
 }
