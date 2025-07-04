@@ -160,4 +160,15 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Solid"))
+        {
+            Debug.Log("Player hit a solid object: " + collision.gameObject.name);
+            // Optional: add response here if needed
+        }
+    }
+
+
 }
