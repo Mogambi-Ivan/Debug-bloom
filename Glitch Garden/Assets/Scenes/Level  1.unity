@@ -932,8 +932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 528f91fbb4f81f148a49b61a8fb4c9de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  rotateSpeed: 90
+  moveSpeed: 4
+  rotateSpeed: 70
   ScoreText: {fileID: 321718516}
   RestartNotification: {fileID: 2142677436}
   maxPlants: 10
@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 665025571}
   - component: {fileID: 665025570}
   m_Layer: 0
-  m_Name: tree_palmBend (1)
+  m_Name: TallTree
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2222,7 +2222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1ad27b912574004aac825020c5302f0, type: 3}
       propertyPath: m_Name
-      value: tree_thin (1)
+      value: TallTree
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1ad27b912574004aac825020c5302f0, type: 3}
       propertyPath: m_TagString
@@ -3045,7 +3045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1ad27b912574004aac825020c5302f0, type: 3}
       propertyPath: m_Name
-      value: tree_thin (2)
+      value: TallTree
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1ad27b912574004aac825020c5302f0, type: 3}
       propertyPath: m_TagString
@@ -3241,6 +3241,7 @@ Transform:
   - {fileID: 7660676989103548069}
   - {fileID: 665025569}
   - {fileID: 1097636826}
+  - {fileID: 543450652755663625}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1727609275
@@ -4021,7 +4022,7 @@ GameObject:
   - component: {fileID: 2128477377}
   - component: {fileID: 2128477376}
   m_Layer: 0
-  m_Name: tree_tall_dark (1)
+  m_Name: TallTree
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4329,12 +4330,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149033255347}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5115178, y: 0.25000024, z: -2.5633636}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -16.001799, y: 0, z: 10.045757}
   m_LocalScale: {x: 2, y: 3, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1722141253}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &919132149033255347
 GameObject:
@@ -4351,7 +4352,7 @@ GameObject:
   - component: {fileID: 1313271932}
   m_Layer: 0
   m_Name: rock-c
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4423,7 +4424,7 @@ GameObject:
   - component: {fileID: 3462205261557040664}
   - component: {fileID: 4783313452169922426}
   m_Layer: 0
-  m_Name: tree_thin
+  m_Name: TallTree
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4681,7 +4682,7 @@ GameObject:
   - component: {fileID: 6460635001616729361}
   - component: {fileID: 2972276498272734275}
   m_Layer: 0
-  m_Name: tree_tall_dark
+  m_Name: TallTree
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4926,7 +4927,7 @@ GameObject:
   - component: {fileID: 8530679485532665078}
   - component: {fileID: 4275684569214172571}
   m_Layer: 0
-  m_Name: tree_palmBend
+  m_Name: TallTree
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5170,4 +5171,3 @@ SceneRoots:
   - {fileID: 358370472}
   - {fileID: 2134753262}
   - {fileID: 1722141253}
-  - {fileID: 543450652755663625}

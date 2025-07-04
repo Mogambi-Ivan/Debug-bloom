@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         if (RestartNotification != null)
         {
-            RestartNotification.text = "You died. Restarting…";
+            RestartNotification.text = "You have lost, Restarting now…";
         }
 
         yield return new WaitForSeconds(2f);
@@ -161,14 +161,38 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void OnCollisionEnter(Collision collision)
+   private void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.CompareTag("Solid"))
     {
-        if (collision.gameObject.CompareTag("Solid"))
+        Debug.Log("Player hit: " + collision.gameObject.name);
+
+        if (collision.gameObject.name.Contains("TallTree"))
         {
-            Debug.Log("Player hit a solid object: " + collision.gameObject.name);
-            // Optional: add response here if needed
+            Debug.Log("Tall trees don’t count!");
+            if (RestartNotification != null)
+            {
+                RestartNotification.text = "Tall trees don’t count!";
+            }
+        }
+        else
+            {
+                Debug.Log("Player hit a solid object.");
+            }
+    }
+}
+private void OnCollisionExit(Collision collision)
+{
+    if (collision.gameObject.CompareTag("Solid") &&
+        collision.gameObject.name.Contains("TallTree"))
+    {
+        Debug.Log("Moved away from tall tree.");
+        if (RestartNotification != null)
+        {
+            RestartNotification.text = "";
         }
     }
+}
 
 
 }
