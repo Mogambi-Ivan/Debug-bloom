@@ -26,11 +26,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnEnable()
-    {
-        controls.Enable();
-        controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
-    }
+{
+    controls.Enable();
+    controls.Player.Enable();  // explicitly enable the Player map
+
+    controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+    controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+}
 
     void OnDisable()
     {
@@ -62,8 +64,11 @@ public class PlayerController : MonoBehaviour
             rb.MoveRotation(rb.rotation * turnOffset);
         }
 
-        float currentSpeed = Mathf.Abs(moveAmount) * moveSpeed;
+        // ✅ Proper animator speed parameter
+        float currentSpeed = moveInput.magnitude;  // between 0 and 1
         animator.SetFloat("Speed", currentSpeed);
+        Debug.Log("moveInput: " + moveInput);
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     private void GrowCharacter()
     {
-        float growthFactor = 1.05f;
+        float growthFactor = 1.08f;
         transform.localScale *= growthFactor;
 
         Debug.Log($"[Growth] Banana Man grew! New scale: {transform.localScale}");
@@ -161,38 +166,37 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-   private void OnCollisionEnter(Collision collision)
-{
-    if (collision.gameObject.CompareTag("Solid"))
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Player hit: " + collision.gameObject.name);
-
-        if (collision.gameObject.name.Contains("TallTree"))
+        if (collision.gameObject.CompareTag("Solid"))
         {
-            Debug.Log("Tall trees don’t count!");
-            if (RestartNotification != null)
+            Debug.Log("Player hit: " + collision.gameObject.name);
+
+            if (collision.gameObject.name.Contains("TallTree"))
             {
-                RestartNotification.text = "Tall trees don’t count!";
+                Debug.Log("Tall trees don’t count!");
+                if (RestartNotification != null)
+                {
+                    RestartNotification.text = "Tall trees don’t count!";
+                }
             }
-        }
-        else
+            else
             {
                 Debug.Log("Player hit a solid object.");
             }
-    }
-}
-private void OnCollisionExit(Collision collision)
-{
-    if (collision.gameObject.CompareTag("Solid") &&
-        collision.gameObject.name.Contains("TallTree"))
-    {
-        Debug.Log("Moved away from tall tree.");
-        if (RestartNotification != null)
-        {
-            RestartNotification.text = "";
         }
     }
-}
 
-
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Solid") &&
+            collision.gameObject.name.Contains("TallTree"))
+        {
+            Debug.Log("Moved away from tall tree.");
+            if (RestartNotification != null)
+            {
+                RestartNotification.text = "";
+            }
+        }
+    }
 }
