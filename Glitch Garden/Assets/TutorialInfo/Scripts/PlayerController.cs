@@ -6,6 +6,10 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public AudioSource sfxAudioSource;
+    public AudioClip collectPlantClip;
+
     private InputSystem_Actions controls;
     private Vector2 moveInput;
 
@@ -101,6 +105,31 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("[Trigger] Not a Plant — ignoring.");
         }
+
+        if (other.CompareTag("Plant"))
+{
+    Debug.Log("[Trigger] It’s a Plant! Picking it up…");
+
+    numberofplants++;
+    updateScore();
+
+    GrowCharacter();
+
+    Destroy(other.gameObject);
+
+    // Play SFX here
+    if (sfxAudioSource != null && collectPlantClip != null)
+    {
+        sfxAudioSource.PlayOneShot(collectPlantClip);
+    }
+
+    if (numberofplants >= maxPlants)
+    {
+        Debug.Log("[Level] Max plants collected. Level complete!");
+        StartCoroutine(LevelComplete());
+    }
+}
+
     }
 
     private void updateScore()
