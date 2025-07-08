@@ -24,19 +24,25 @@ public class PlayerController : MonoBehaviour
     private int numberofplants = 0;
     public int maxPlants = 10; // configurable in Inspector
 
+    public float timeLimit = 180f; // seconds
+    private float timeRemaining;
+    public TextMeshProUGUI timerText; // assign in Inspector
+    private bool timerActive = false;
+
+
     void Awake()
     {
         controls = new InputSystem_Actions();
     }
 
     void OnEnable()
-{
-    controls.Enable();
-    controls.Player.Enable();  // explicitly enable the Player map
+    {
+        controls.Enable();
+        controls.Player.Enable();  // explicitly enable the Player map
 
-    controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-    controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
-}
+        controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+    }
 
     void OnDisable()
     {
@@ -51,6 +57,40 @@ public class PlayerController : MonoBehaviour
 
         if (RestartNotification != null)
             RestartNotification.text = "";
+
+        // Initialize timer for Level 3
+        if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            timeRemaining = timeLimit;
+            timerActive = true;
+        }
+    }
+
+    void Update()
+    {
+        // Update timer if active
+        if (timerActive)
+        {
+            timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 0f)
+            {
+                timeRemaining = 0f;
+                timerActive = false;
+                RestartGame(); // triggers coroutine
+            }
+
+            UpdateTimerUI();
+        }
+    }
+
+    private void UpdateTimerUI()
+    {
+        if (timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(timeRemaining / 60f);
+            int seconds = Mathf.FloorToInt(timeRemaining % 60f);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
     }
 
     void FixedUpdate()
@@ -68,11 +108,9 @@ public class PlayerController : MonoBehaviour
             rb.MoveRotation(rb.rotation * turnOffset);
         }
 
-        // ✅ Proper animator speed parameter
         float currentSpeed = moveInput.magnitude;  // between 0 and 1
         animator.SetFloat("Speed", currentSpeed);
         Debug.Log("moveInput: " + moveInput);
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -90,6 +128,12 @@ public class PlayerController : MonoBehaviour
 
             Destroy(other.gameObject);
 
+            // Play SFX here
+            if (sfxAudioSource != null && collectPlantClip != null)
+            {
+                sfxAudioSource.PlayOneShot(collectPlantClip);
+            }
+
             if (numberofplants >= maxPlants)
             {
                 Debug.Log("[Level] Max plants collected. Level complete!");
@@ -105,31 +149,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("[Trigger] Not a Plant — ignoring.");
         }
-
-        if (other.CompareTag("Plant"))
-{
-    Debug.Log("[Trigger] It’s a Plant! Picking it up…");
-
-    numberofplants++;
-    updateScore();
-
-    GrowCharacter();
-
-    Destroy(other.gameObject);
-
-    // Play SFX here
-    if (sfxAudioSource != null && collectPlantClip != null)
-    {
-        sfxAudioSource.PlayOneShot(collectPlantClip);
-    }
-
-    if (numberofplants >= maxPlants)
-    {
-        Debug.Log("[Level] Max plants collected. Level complete!");
-        StartCoroutine(LevelComplete());
-    }
-}
-
     }
 
     private void updateScore()
@@ -139,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
     private void GrowCharacter()
     {
-        float growthFactor = 1.08f;
+        float growthFactor = 1.06f;
         transform.localScale *= growthFactor;
 
         Debug.Log($"[Growth] Banana Man grew! New scale: {transform.localScale}");
